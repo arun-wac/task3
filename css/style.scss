@@ -1,0 +1,350 @@
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+
+li {
+    list-style: none;
+}
+
+.jumbotron {
+    padding: 1rem;
+}
+
+input,
+textarea {
+    padding: 5px 10px;
+}
+
+textarea:hover,
+input:hover,
+textarea:active,
+input:active,
+textarea:focus,
+input:focus,
+button:focus,
+button:active,
+button:hover,
+label:focus,
+.btn:active,
+.btn.active {
+    outline: 0px !important;
+    -webkit-appearance: none;
+    box-shadow: none !important;
+}
+
+.textarea-container {
+    position: relative;
+    width: 100%;
+}
+
+textarea,
+.textarea-size {
+    min-height: 25px;
+    font-family: sans-serif;
+    font-size: 16px;
+    box-sizing: border-box;
+    border: 1px solid;
+    overflow: hidden;
+    width: 100%;
+}
+
+textarea {
+    height: 100%;
+    position: absolute;
+    resize: none;
+    white-space: normal;
+}
+
+.textarea-size {
+    visibility: hidden;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.hidden {
+    display: none;
+}
+
+.note-wrapper {
+    padding: 30px 10px;
+    align-items: flex-start
+}
+
+.note-item {
+    position: relative;
+    border-radius: 5px;
+    word-wrap: break-word;
+    // background-color: rgb(238, 194, 129);
+    p,
+    h3 {
+        display: block;
+        width: 100%;
+        padding: 10px 20px;
+        margin-bottom: 0;
+    }
+}
+
+.note-content-wrapper {
+    width: 100%;
+    margin: 0;
+    padding-bottom: 70px;
+}
+
+.note-footer {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    background-color: rgba(171, 171, 171, 0.3);
+    >ul {
+        margin: 0;
+        padding: 0 5px;
+        li {
+            height: 40px;
+            padding: 5px 10px;
+            display: inline-block;
+            i {
+                // color: white;
+                height: 24px;
+                width: 24px;
+                cursor: pointer;
+            }
+        }
+    }
+    .save-button {
+        padding-top: 0;
+    }
+    .save {
+        position: absolute;
+        &:hover {
+            background-color: rgba(171, 171, 171, 0.5);
+        }
+    }
+}
+
+.new-note {
+    border-radius: 5px;
+    min-height: 160px;
+    min-width: 190px;
+    cursor: pointer;
+    i {
+        border-radius: 5px;
+        color: white;
+        background-color: #87CEFA;
+        font-size: 160px;
+        &:hover {
+            background-color: dodgerblue;
+        }
+    }
+}
+
+.popup-wrapper {
+    height: 100%;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.popup {
+    opacity: 1;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 3px grey;
+    // background-color: rgb(238, 194, 129);
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    .popup-body {
+        padding: 0 30px 30px 30px;
+        .popup-item {
+            background-color: transparent;
+            color: black;
+            border: 0;
+            width: 100%;
+            &.note-footer {
+                background-color: rgba(171, 171, 171, 0.3);
+                width: 100%;
+            }
+        }
+        .close-wrapper {
+            top: 8px;
+            position: relative;
+            height: 36px;
+        }
+        .close-button {
+            position: absolute;
+            right: 0;
+            top: 0;
+            display: inline-block;
+            text-decoration: none;
+            color: inherit;
+            i {
+                line-height: 24px;
+                font-size: 36px;
+            }
+            &:hover i {
+                text-shadow: 0 0 10px black;
+            }
+        }
+        .popup-title {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        .popup-content-wrapper {
+            padding-top: 20px;
+            padding-bottom: 50px;
+        }
+        max-width: 600px;
+        width:100%;
+        min-height: 200px;
+        height:auto;
+    }
+}
+
+.color-icon:hover .color-picker {
+    display: block;
+}
+
+.color-picker {
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    background-color: white;
+    box-shadow: 0 0 10px 3px lightgrey;
+    ul {
+        padding: 5px;
+        padding-bottom: 0;
+        margin: 0;
+    }
+    li {
+        height: 20px !important;
+        width: 20px;
+        border-radius: 50%;
+        box-sizing: border-box;
+        margin: 2px;
+        &:hover {
+            border: 1px solid black;
+        }
+    }
+}
+
+.white {
+    border: 1px solid lightgrey;
+    background-color: white;
+    color: black;
+}
+
+.yellow {
+    border: 1px solid yellow;
+    background-color: yellow;
+    color: black;
+}
+
+.gold {
+    border: 1px solid gold;
+    background-color: gold;
+    color: black;
+}
+
+.orange {
+    border: 1px solid orange;
+    background-color: orange;
+    color: black;
+}
+
+.tomato {
+    border: 1px solid tomato;
+    background-color: tomato;
+    color: black;
+}
+
+.red {
+    border: 1px solid red;
+    background-color: red;
+    color: black;
+}
+
+.aquamarine {
+    border: 1px solid aquamarine;
+    background-color: aquamarine;
+    color: black;
+}
+
+.charteruse {
+    border: 1px solid chartreuse;
+    background-color: chartreuse;
+    color: black;
+}
+
+.lightcyan {
+    border: 1px solid lightcyan;
+    background-color: lightcyan;
+    color: black;
+}
+
+.aqua {
+    border: 1px solid aqua;
+    background-color: aqua;
+    color: black;
+}
+
+.dodgerblue {
+    border: 1px solid dodgerblue;
+    background-color: dodgerblue;
+    color: black;
+}
+
+.navy {
+    border: 1px solid navy;
+    background-color: navy;
+    color: white;
+    &:hover {
+        border: 1px solid lightcyan !important;
+    }
+}
+
+.grey {
+    border: 1px solid grey;
+    background-color: grey;
+    color: white;
+}
+
+.black {
+    border: 1px solid black;
+    background-color: black;
+    color: white;
+    &:hover {
+        border: 1px solid lightcyan !important;
+    }
+}
+
+.magenta {
+    border: 1px solid magenta;
+    background-color: magenta;
+    color: black;
+}
+
+.saddlebrown {
+    border: 1px solid saddlebrown;
+    background-color: saddlebrown;
+    color: white;
+}
+
+.tick {
+    background-image: url(/includes/images/tick.png);
+    background-size: cover;
+}
+
+.tickwhite {
+    background-image: url(/includes/images/tickwhite.png);
+    background-position: center;
+    background-size: 12px 10px;
+    background-repeat: no-repeat;
+}

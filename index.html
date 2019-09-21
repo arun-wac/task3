@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Note Maker</title>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="includes/images/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="includes/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <script src="includes/js/jquery-3.4.1.js"></script>
+    <script src="includes/js/popper.min.js"></script>
+    <script src="includes/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+    <section>
+        <div class="jumbotron">
+            <h1 class="display-4 text-center">Notes</h1>
+            <!-- <p class="lead">Jumbo helper text</p>
+            <hr class="my-2">
+            <p>More info</p>
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" href="Jumbo action link" role="button">Jumbo action name</a>
+            </p> -->
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="row note-wrapper">
+
+                <!-- <div class="col-2 new-note">
+                    <i class="material-icons add-note">add</i>
+                </div> -->
+
+                <!-- <div class="col-3 note-item note white">
+                    <input type="hidden" class="id" name="id" value="1" />
+                    <input type="hidden" class="color" name="color" value="white" />
+                    <div class="row">
+                        <h3 class="note-title text-center">Title</h3>
+                    </div>
+                    <div class="row w-100 note-content-wrapper">
+                        <p class="note-content">Content</p>
+                    </div>
+                    <div class="row note-footer ">
+                        <ul class="w-100 px-0 text-center">
+                            <li class="color-icon"><i class="material-icons">color_lens</i>
+                                <div class="color-picker">
+                                    <ul>
+                                        <li class="white tick"></li>
+                                        <li class="lightcyan"></li>
+                                        <li class="aquamarine"></li>
+                                        <li class="charteruse"></li>
+                                    </ul>
+                                    <ul>
+                                        <li class="yellow"></li>
+                                        <li class="gold"></li>
+                                        <li class="orange"></li>
+                                        <li class="tomato"></li>
+                                    </ul>
+                                    <ul>
+                                        <li class="magenta"></li>
+                                        <li class="red"></li>
+                                        <li class="aqua"></li>
+                                        <li class="dodgerblue"></li>
+                                    </ul>
+                                    <ul>
+                                        <li class="navy"></li>
+                                        <li class="saddlebrown"></li>
+                                        <li class="grey"></li>
+                                        <li class="black"></li>
+
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="edit"><i class="material-icons">&#xe3c9;</i></li>
+                            <li class="delete"> <i class="material-icons">&#xe872;</i></li>
+
+
+                        </ul>
+                    </div>
+                </div> -->
+
+            </div>
+        </div>
+    </section>
+    <div class="popup-wrapper hidden">
+        <div class="popup note white">
+            <div class="popup-body">
+                <div class="close-wrapper">
+                    <a class="close-button" href=""><i>&times;</i></a>
+                </div>
+                <input type="hidden" class="id" name="id" value="" />
+                <input type="hidden" class="color" name="color" value="" />
+                <input type="text" name="popup-title" class="popup-title popup-item" placeholder="Title" />
+                <div class="popup-content-wrapper popup-content popup-item">
+                    <div class="textarea-container">
+                        <textarea name="popup-content" class="popup-item" placeholder="Content"></textarea>
+                        <div class="textarea-size"></div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="note-footer">
+                <ul class="w-100 px-0 text-center">
+                    <li class="color-icon"><i class="material-icons">color_lens</i>
+                        <div class="color-picker">
+                            <ul>
+                                <li class="white tick"></li>
+                                <li class="lightcyan"></li>
+                                <li class="aquamarine"></li>
+                                <li class="charteruse"></li>
+                            </ul>
+                            <ul>
+                                <li class="yellow"></li>
+                                <li class="gold"></li>
+                                <li class="orange"></li>
+                                <li class="tomato"></li>
+                            </ul>
+                            <ul>
+                                <li class="magenta"></li>
+                                <li class="red"></li>
+                                <li class="aqua"></li>
+                                <li class="dodgerblue"></li>
+                            </ul>
+                            <ul>
+                                <li class="navy"></li>
+                                <li class="saddlebrown"></li>
+                                <li class="grey"></li>
+                                <li class="black"></li>
+
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="edit"><i class="material-icons">&#xe3c9;</i></li>
+                    <li class="delete"> <i class="material-icons">&#xe872;</i></li>
+                    <li class="save"><button type="button" class="btn save-button">Save</button></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>
