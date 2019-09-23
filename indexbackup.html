@@ -14,8 +14,6 @@
     <script src="includes/js/jquery-3.4.1.js"></script>
     <script src="includes/js/popper.min.js"></script>
     <script src="includes/js/bootstrap.min.js"></script>
-    <script src="/includes/js/draggabilly.min.js"></script>
-    <script src="/includes/js/packery.min.js"></script>
 
 </head>
 
@@ -39,7 +37,7 @@
                     <i class="material-icons add-note">add</i>
                 </div>
             </div>
-            <div class="row1 grid note-wrapper">
+            <div class="row grid note-wrapper">
 
                 <!-- <div class="col-2 new-note">
                     <i class="material-icons add-note">add</i>
@@ -105,7 +103,12 @@
                 <input type="hidden" class="id" name="id" value="" />
                 <input type="hidden" class="color" name="color" value="" />
                 <input type="text" name="popup-title" class="popup-title popup-item title" placeholder="Title" autocomplete="off" />
-                <textarea name="popup-content" style="min-height:30px;" class="popup-item popup-content content textarea" id="textarea" placeholder="Content"></textarea>
+                <div class="popup-content-wrapper popup-content popup-item">
+                    <div class="textarea-container">
+                        <textarea name="popup-content" class="popup-item content textarea" placeholder="Content"></textarea>
+                        <div class="textarea-size"></div>
+                    </div>
+                </div>
 
 
             </div>
@@ -150,7 +153,8 @@
     </div>
 
     <script src="js/main.js"></script>
-
+    <script src="/includes/js/packery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </body>
 
 </html>

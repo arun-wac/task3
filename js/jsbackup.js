@@ -176,6 +176,8 @@ $(document).ready(function() {
             var currentId = $(this).closest(".note").find(".id").val();
             var currentColor = $(this).closest(".note").find(".color").val();
             var newColor = $(this).attr("class");
+            newColor.replace(" tick", '');
+            newColor.replace(" tickwhite", '');
 
             // console.log(currentId);
             // console.log(currentColor);
@@ -247,7 +249,10 @@ $(document).ready(function() {
 
             notesArray.push({ id: nextId, title: currentTitle, content: currentContent, color: currentColor });
             nextId++;
-            console.log(notesArray);
+
+            localStorage.setItem("nextId", nextId);
+            localStorage.setItem("notes", JSON.stringify(notesArray));
+            // console.log(notesArray);
             loadnotes();
         });
 
@@ -262,10 +267,10 @@ $(document).ready(function() {
         var i;
         var notes;
         noteWrapper.empty();
-        var newElement = '<div class="col-2 new-note">' +
-            '<i class="material-icons add-note">add</i>' +
-            '</div>';
-        noteWrapper.append(newElement);
+        // var newElement = '<div class="col-2 new-note">' +
+        //     '<i class="material-icons add-note">add</i>' +
+        //     '</div>';
+        // noteWrapper.append(newElement);
         for (i = 0; i < notesArrayLength; i++) {
 
             var id = notesArray[i].id;
@@ -274,7 +279,7 @@ $(document).ready(function() {
             var color = notesArray[i].color;
             var j;
 
-            var newElement = '<div class="col-3 mx-3 note-item note ' + color + '">' +
+            var newElement = '<div class=" col-3 grid-item mx-3 note-item note ' + color + '">' +
                 '<input type = "hidden" class="id" name = "id" value = "' + id + '" />' +
                 '<input type="hidden" class="color" name="color" value="' + color + '" />' +
                 '<div class="row">' +
@@ -418,4 +423,14 @@ $(document).ready(function() {
 
     console.log(localStorage.getItem("notes"));
 
+});
+
+
+
+
+$(document).ready(function() {
+    $(function() {
+        $(".note-wrapper").sortable();
+        $(".note-wrapper").disableSelection();
+    });
 });

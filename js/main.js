@@ -65,21 +65,6 @@ var darkColors = ["magenta",
 
 var backupColor, backupTitle, backupContent;
 
-var textContainer, textareaSize, input;
-var autoSize = function() {
-    // also can use textContent or innerText
-    textareaSize.innerHTML = input.value + '\n';
-};
-
-document.addEventListener('DOMContentLoaded', function() {
-    textContainer = document.querySelector('.textarea-container');
-    textareaSize = textContainer.querySelector('.textarea-size');
-    input = textContainer.querySelector('textarea');
-    autoSize();
-    input.addEventListener('input', autoSize);
-});
-
-
 
 $(document).ready(function() {
 
@@ -133,6 +118,11 @@ $(document).ready(function() {
         $(colorPickerColors).removeClass("tick");
         $(colorPickerColors).removeClass("tickwhite");
         $(colorPickerColors[0]).addClass("tick");
+
+        popup.find('.id').val('');
+        popup.find('.title').val('');
+        popup.find('.color').val('');
+        popup.find('.content').val('');
     }
 
     function loadEvents() {
@@ -140,8 +130,24 @@ $(document).ready(function() {
 
 
         noteItem.click(function() {
+            popupWrapper.removeClass("hidden");
             popupTitle.val($(this).find(".note-title").html());
             textarea.val($(this).find(".note-content").html());
+            textarea.focus();
+            var textareaheight = document.getElementById("textarea").scrollHeight;
+
+            // if (textarea.scrollHeight > 30)
+            textarea.css({ "height": (textareaheight) + 'px', "overflow-y": "hidden", "max-height": "300px", "min-height": "30px" });
+            // if (textarea.scrollHeight > 30)
+            if (textareaheight > 300) {
+                textarea.css({ "height": "300px", "overflow-y": "scroll", "max-height": "300px", "min-height": "30px" });
+            }
+
+            textarea.focus();
+            popup.find(".title").focus();
+
+
+            // popupTitle.focus();
             $(".popup .id").val($(this).find(".id").val());
             $(".popup .color").val($(this).find(".color").val());
             backupColor = $(this).find(".color").val();
@@ -151,7 +157,7 @@ $(document).ready(function() {
 
             var i, j;
             for (j = 0; j < colorPickerColors.length; j++) {
-                console.log($(colorPickerColors[j]));
+
                 $(colorPickerColors[j]).removeClass("tick");
                 $(colorPickerColors[j]).removeClass("tickwhite");
                 if ($(colorPickerColors[j]).hasClass(backupColor)) {
@@ -179,8 +185,8 @@ $(document).ready(function() {
             newColor.replace(" tick", '');
             newColor.replace(" tickwhite", '');
 
-            // console.log(currentId);
-            // console.log(currentColor);
+
+
 
             colorPickerColors.removeClass("tick");
             colorPickerColors.removeClass("tickwhite");
@@ -234,7 +240,7 @@ $(document).ready(function() {
                 }
             }
 
-            console.log(notesArray);
+
             localStorage.setItem("notes", JSON.stringify(notesArray));
 
             loadnotes();
@@ -252,7 +258,7 @@ $(document).ready(function() {
 
             localStorage.setItem("nextId", nextId);
             localStorage.setItem("notes", JSON.stringify(notesArray));
-            // console.log(notesArray);
+
             loadnotes();
         });
 
@@ -267,10 +273,10 @@ $(document).ready(function() {
         var i;
         var notes;
         noteWrapper.empty();
-        var newElement = '<div class="col-2 new-note">' +
-            '<i class="material-icons add-note">add</i>' +
-            '</div>';
-        noteWrapper.append(newElement);
+        // var newElement = '<div class="col-2 new-note">' +
+        //     '<i class="material-icons add-note">add</i>' +
+        //     '</div>';
+        // noteWrapper.append(newElement);
         for (i = 0; i < notesArrayLength; i++) {
 
             var id = notesArray[i].id;
@@ -279,16 +285,14 @@ $(document).ready(function() {
             var color = notesArray[i].color;
             var j;
 
-            var newElement = '<div class="col-3 mx-3 note-item note ' + color + '">' +
+            var newElement = '<div class=" column grid-item note-item note ' + color + '">' +
                 '<input type = "hidden" class="id" name = "id" value = "' + id + '" />' +
                 '<input type="hidden" class="color" name="color" value="' + color + '" />' +
-                '<div class="row">' +
                 '<h3 class="note-title text-center title">' + title + '</h3>' +
-                '</div>' +
-                '<div class="row w-100 note-content-wrapper">' +
+                '<div class="w-100 note-content-wrapper">' +
                 '<p class="note-content content">' + content + '</p>' +
                 '</div>' +
-                '<div class="row note-footer ">' +
+                '<div class="note-footer ">' +
                 '<ul class="w-100 px-0 text-center">';
             //     '<li class="color-icon">' + '<i class="material-icons">' + 'color_lens' + '</i>' +
             //     '<div class="color-picker">';
@@ -326,6 +330,19 @@ $(document).ready(function() {
 
             noteWrapper.append(newElement);
         }
+
+        var $grid = $('.grid').packery({
+            itemSelector: '.grid-item',
+            columnWidth: 310,
+            columnHeight: 200
+        });
+
+
+        $grid.find('.grid-item').each(function(i, gridItem) {
+            var draggie = new Draggabilly(gridItem);
+            // bind drag events to Packery
+            $grid.packery('bindDraggabillyEvents', draggie);
+        });
 
         loadvariables();
         loadEvents();
@@ -376,7 +393,7 @@ $(document).ready(function() {
         var currentId = $(this).closest(".note").find(".id").val();
 
         var currentTitle = $(this).closest(".note").find(".popup-title").val();
-        var currentContent = $(this).closest(".note").find(".popup-content .popup-item").val();
+        var currentContent = $(this).closest(".note").find(".popup-content").val();
         var currentColor = $(this).closest(".note").find(".color").val();
 
 
@@ -418,9 +435,38 @@ $(document).ready(function() {
 
 
 
-    // console.log(JSON.stringify(jsonArray));
+
     // localStorage.setItem("notes", JSON.stringify(jsonArray));
 
-    console.log(localStorage.getItem("notes"));
+
+
+});
+
+
+
+
+$(document).ready(function() {
+    // $(function() {
+    //     $(".note-wrapper").sortable();
+    //     $(".note-wrapper").disableSelection();
+    // });
+
+    // autosize($('textarea'));
+
+    $('textarea').each(function() {
+        if (this.scrollHeight > 30)
+            $(this).css({ "height": (this.scrollHeight) + 'px', "overflow-y": "hidden", "max-height": "300px", "min-height": "30px" });
+        if (this.scrollHeight > 300) {
+            $(this).css({ "height": "300px", "overflow-y": "hidden", "max-height": "300px", "min-height": "30px" });
+        }
+    }).on('input', function() {
+        $(this).css({ "height": "auto", "overflow-y": "hidden", "max-height": "300px", "min-height": "30px" });
+        if (this.scrollHeight > 30)
+            $(this).css({ "height": (this.scrollHeight) + 'px', "overflow-y": "hidden", "max-height": "300px", "min-height": "30px" });
+
+        if (this.scrollHeight > 300) {
+            $(this).css({ "height": "300px", "overflow-y": "scroll", "max-height": "300px", "min-height": "30px" });
+        }
+    });
 
 });
