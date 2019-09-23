@@ -17,6 +17,10 @@ var jsonArray = [{
 // localStorage.setItem("nextId", "2");
 
 var nextId = localStorage.getItem("nextId");
+if (nextId == null) {
+    nextId = 0;
+    localStorage.setItem("nextId", nextId);
+}
 
 
 var colors = [
@@ -89,7 +93,12 @@ $(document).ready(function() {
     var noteWrapper = $(".note-wrapper");
     var addNote = $(".add-note");
     var notesArray = JSON.parse(localStorage.getItem("notes"));
-    var notesArrayLength = notesArray.length;
+    var notesArrayLength;
+    if (notesArray == null) {
+        notesArrayLength = 0;
+    } else {
+        notesArrayLength = notesArray.length;
+    }
     var colorPicker = $(".color-picker");
     var colorPickerColors = $(".color-picker li");
     var noteItem = $(".note-item");
@@ -102,6 +111,11 @@ $(document).ready(function() {
         addNote = $(".add-note");
         deleteIcon = $(".delete");
         notesArray = JSON.parse(localStorage.getItem("notes"));
+        if (notesArray == null) {
+            notesArrayLength = 0;
+        } else {
+            notesArrayLength = notesArray.length;
+        }
     }
 
     function popupReset() {
@@ -202,9 +216,10 @@ $(document).ready(function() {
 
         deleteIcon.click(function(e) {
             e.stopPropagation();
+            // notesArrayLength = notesArray.length;
             var idToDelete = $(this).closest(".note").find(".id").val();
             var i;
-            for (i = 0; i < notesArray.length; i++) {
+            for (i = 0; i < notesArrayLength; i++) {
                 if (notesArray[i].id == idToDelete) {
                     notesArray.splice(i, 1);
                     break;
@@ -225,7 +240,7 @@ $(document).ready(function() {
     function loadnotes() {
         loadvariables();
         notesArray = JSON.parse(localStorage.getItem("notes"));
-        notesArrayLength = notesArray.length;
+        // notesArrayLength = notesArray.length;
         var i;
         var notes;
         noteWrapper.empty();
@@ -347,7 +362,7 @@ $(document).ready(function() {
             currentNoteItem.find(".note-content").html(currentContent);
 
             var i;
-            for (i = 0; i < notesArray.length; i++) {
+            for (i = 0; i < notesArrayLength; i++) {
                 if (notesArray[i].id == currentId) {
                     notesArray[i].title = currentTitle;
                     notesArray[i].content = currentContent;
@@ -355,7 +370,7 @@ $(document).ready(function() {
                     break;
                 }
             }
-            if (i == notesArray.length) {
+            if (i == notesArrayLength) {
                 // currentId = notesArray.length;
                 if (currentTitle == '' || currentContent == '') {
                     return false;
