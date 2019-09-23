@@ -173,7 +173,10 @@ $(document).ready(function() {
         var i;
         var notes;
         noteWrapper.innerHTML = '';
-
+        var newElement = '<div class="col-2 new-note">' +
+            '<i class="material-icons add-note">add</i>' +
+            '</div>';
+        noteWrapper.append(newElement);
         for (i = 0; i < notesArrayLength; i++) {
 
             var id = notesArray[i].id;
@@ -181,7 +184,6 @@ $(document).ready(function() {
             var content = notesArray[i].content;
             var color = notesArray[i].color;
             var j;
-
 
             var newElement = '<div class="col-3 mx-3 note-item note ' + color + '">' +
                 '<input type = "hidden" class="id" name = "id" value = "' + id + '" />' +
