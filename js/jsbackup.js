@@ -176,8 +176,6 @@ $(document).ready(function() {
             var currentId = $(this).closest(".note").find(".id").val();
             var currentColor = $(this).closest(".note").find(".color").val();
             var newColor = $(this).attr("class");
-            newColor.replace(" tick", '');
-            newColor.replace(" tickwhite", '');
 
             // console.log(currentId);
             // console.log(currentColor);
@@ -249,10 +247,7 @@ $(document).ready(function() {
 
             notesArray.push({ id: nextId, title: currentTitle, content: currentContent, color: currentColor });
             nextId++;
-
-            localStorage.setItem("nextId", nextId);
-            localStorage.setItem("notes", JSON.stringify(notesArray));
-            // console.log(notesArray);
+            console.log(notesArray);
             loadnotes();
         });
 

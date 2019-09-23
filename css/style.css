@@ -8,20 +8,27 @@ li {
   list-style: none;
 }
 
+input {
+  background-color: transparent;
+  color: inherit;
+  border: 0;
+  width: 100%;
+}
+
 .jumbotron {
   padding: 1rem;
 }
 
 input,
-textarea {
+.textarea {
   padding: 5px 10px;
 }
 
-textarea:hover,
+.textarea:hover,
 input:hover,
-textarea:active,
+.textarea:active,
 input:active,
-textarea:focus,
+.textarea:focus,
 input:focus,
 button:focus,
 button:active,
@@ -40,7 +47,7 @@ label:focus,
   width: 100%;
 }
 
-textarea,
+.textarea,
 .textarea-size {
   min-height: 25px;
   font-family: sans-serif;
@@ -52,7 +59,7 @@ textarea,
   width: 100%;
 }
 
-textarea {
+.textarea {
   height: 100%;
   position: absolute;
   resize: none;
@@ -229,6 +236,11 @@ textarea {
 .popup .popup-body .popup-content-wrapper {
   padding-top: 20px;
   padding-bottom: 50px;
+}
+
+.title {
+  font-size: 30px;
+  font-weight: 700;
 }
 
 .color-icon:hover .color-picker {
