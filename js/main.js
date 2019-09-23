@@ -85,20 +85,32 @@ $(document).ready(function() {
     var popupTitle = $(".popup-title");
     var textarea = $("textarea.popup-item");
     var textareaSize = $(".textarea-size");
-    var addNote = $(".add-note");
     var save = $(".save");
     var noteWrapper = $(".note-wrapper");
-
+    var addNote = $(".add-note");
     var notesArray = JSON.parse(localStorage.getItem("notes"));
     var notesArrayLength = notesArray.length;
     var colorPicker = $(".color-picker");
     var colorPickerColors = $(".color-picker li");
     var noteItem = $(".note-item");
+    var deleteIcon = $(".delete");
 
     function loadvariables() {
         colorPicker = $(".color-picker");
         colorPickerColors = $(".color-picker li");
         noteItem = $(".note-item");
+        addNote = $(".add-note");
+        deleteIcon = $(".delete");
+        notesArray = JSON.parse(localStorage.getItem("notes"));
+    }
+
+    function popupReset() {
+        popup.removeClass(colors);
+        popup.addClass("white");
+
+        $(colorPickerColors).removeClass("tick");
+        $(colorPickerColors).removeClass("tickwhite");
+        $(colorPickerColors[0]).addClass("tick");
     }
 
     function loadEvents() {
@@ -117,6 +129,24 @@ $(document).ready(function() {
 
             popup.addClass($(this).find(".color").val());
 
+            var i, j;
+            for (j = 0; j < colorPickerColors.length; j++) {
+                console.log($(colorPickerColors[j]));
+                $(colorPickerColors[j]).removeClass("tick");
+                $(colorPickerColors[j]).removeClass("tickwhite");
+                if ($(colorPickerColors[j]).hasClass(backupColor)) {
+                    for (i of lightColors) {
+                        if ($(colorPickerColors[j]).hasClass(i)) {
+                            $(colorPickerColors[j]).addClass("tick");
+                        }
+                    }
+                    for (i of darkColors) {
+                        if ($(colorPickerColors[j]).hasClass(i)) {
+                            $(colorPickerColors[j]).addClass("tickwhite");
+                        }
+                    }
+                }
+            }
 
             popupWrapper.removeClass("hidden");
         });
@@ -162,6 +192,32 @@ $(document).ready(function() {
 
         });
 
+        addNote.click(function() {
+            var nextId = localStorage.getItem("nextId");
+            popup.find(".id").val(nextId);
+            popup.find(".color").val("white");
+
+            popupWrapper.removeClass("hidden");
+        });
+
+        deleteIcon.click(function(e) {
+            e.stopPropagation();
+            var idToDelete = $(this).closest(".note").find(".id").val();
+            var i;
+            for (i = 0; i < notesArray.length; i++) {
+                if (notesArray[i].id == idToDelete) {
+                    notesArray.splice(i, 1);
+                    break;
+                }
+            }
+
+            console.log(notesArray);
+            localStorage.setItem("notes", JSON.stringify(notesArray));
+
+            loadnotes();
+
+        });
+
     }
 
 
@@ -172,7 +228,7 @@ $(document).ready(function() {
         notesArrayLength = notesArray.length;
         var i;
         var notes;
-        noteWrapper.innerHTML = '';
+        noteWrapper.empty();
         var newElement = '<div class="col-2 new-note">' +
             '<i class="material-icons add-note">add</i>' +
             '</div>';
@@ -242,19 +298,13 @@ $(document).ready(function() {
 
 
 
-    addNote.click(function() {
-        var nextId = localStorage.getItem("nextId");
-        popup.find(".id").val(nextId);
-        popup.find(".color").val("white");
 
-        popupWrapper.removeClass("hidden");
-    });
 
     closeButton.click(function() {
         popupTitle.val("");
         textarea.val("");
         textareaSize.html("");
-        popupWrapper.addClass("hidden");
+
 
         var currentId = $(this).closest(".popup").find(".id").val();
         var currentColor = $(this).closest(".popup").find(".color").val();
@@ -262,8 +312,12 @@ $(document).ready(function() {
         var currentNoteItem = $(".note-item .id[value=" + currentId + "]").closest(".note-item");
         currentNoteItem.removeClass(currentColor);
         currentNoteItem.addClass(backupColor);
+        currentNoteItem.find(".color").val(backupColor);
 
+        popup.removeClass(currentColor);
 
+        popupReset();
+        popupWrapper.addClass("hidden");
         return false;
     });
 
@@ -315,7 +369,7 @@ $(document).ready(function() {
             localStorage.setItem("nextId", nextId);
             localStorage.setItem("notes", JSON.stringify(notesArray));
         }
-
+        popupReset();
         popupWrapper.addClass("hidden");
 
         loadnotes();
