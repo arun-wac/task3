@@ -291,8 +291,8 @@ $(document).ready(function() {
         });
 
         undo.off('click').on('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
+            // e.preventDefault();
+            // e.stopPropagation();
             notesArray = [...notesArrayBackup];
             localStorage.setItem("notes", JSON.stringify(notesArray));
             loadnotes();
