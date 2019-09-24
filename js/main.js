@@ -144,7 +144,7 @@ $(document).ready(function() {
         loadvariables();
 
 
-        noteItem.off('click').on('click', function() {
+        noteItem.on('click', function() {
             popupWrapper.removeClass("hidden");
             popupTitle.val($(this).find(".note-title").html());
             textarea.val($(this).find(".note-content").html());
@@ -188,7 +188,7 @@ $(document).ready(function() {
                     }
                 }
             }
-            popupWrapper.removeClass("hidden");
+            // popupWrapper.removeClass("hidden");
         });
 
 
@@ -260,6 +260,7 @@ $(document).ready(function() {
 
             for (i = 0; i < notesArrayLength; i++) {
                 if (notesArray[i].id == idToDelete) {
+                    $grid.packery("remove", notesArray[i]);
                     notesArray.splice(i, 1);
                     break;
                 }
@@ -370,8 +371,7 @@ $(document).ready(function() {
             // newElement += '</div>' +
             //     '</li>' +
 
-            newElement += '<li class="edit">' + '<i class="material-icons">' + '&#xe3c9;' + '</i>' + '</li>' +
-                '<li class="delete">' + '<i class="material-icons">' + '&#xe872;' + '</i>' + '</li>' +
+            newElement += '<li class="delete">' + '<i class="material-icons">' + '&#xe872;' + '</i>' + '</li>' +
                 '<li class="copy">' + '<i class="material-icons">content_copy</i>' + '</li>'
             '</ul>' +
             '</div>' +
@@ -437,6 +437,7 @@ $(document).ready(function() {
 
 
     closeButton.off('click').on('click', function() {
+        popupWrapper.addClass("hidden");
         popupTitle.val("");
         textarea.val("");
         textareaSize.html("");
@@ -453,7 +454,7 @@ $(document).ready(function() {
         popup.removeClass(currentColor);
 
         popupReset();
-        popupWrapper.addClass("hidden");
+
         return false;
     });
 
