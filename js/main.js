@@ -78,6 +78,7 @@ $(document).ready(function() {
     var noteWrapper = $(".note-wrapper");
     var addNote = $(".add-note");
     var notesArray = JSON.parse(localStorage.getItem("notes"));
+    var notesArrayBackup;
     if (notesArray == null) {
         notesArray = [];
     }
@@ -91,7 +92,13 @@ $(document).ready(function() {
     var colorPickerColors = $(".color-picker li");
     var noteItem = $(".note-item");
     var deleteIcon = $(".delete");
+    var deletePopupWrapper = $(".delete-popup-wrapper");
+    var deletePopup = $(".delete-popup");
+    var deletePopupButton = $(".delete-button");
+    var deleteCancel = $(".delete-cancel-button");
     var copy = $(".copy");
+    var idToDelete = -1;
+    var undo = $(".undo");
 
     var $grid = $('.grid').packery({
         itemSelector: '.grid-item',
@@ -137,7 +144,7 @@ $(document).ready(function() {
         loadvariables();
 
 
-        noteItem.click(function() {
+        noteItem.off('click').on('click', function() {
             popupWrapper.removeClass("hidden");
             popupTitle.val($(this).find(".note-title").html());
             textarea.val($(this).find(".note-content").html());
@@ -185,13 +192,13 @@ $(document).ready(function() {
         });
 
 
-        colorPickerColors.click(function(e) {
+        colorPickerColors.off('click').on('click', function(e) {
             e.stopPropagation();
             var currentId = $(this).closest(".note").find(".id").val();
             var currentColor = $(this).closest(".note").find(".color").val();
-            var newColor = $(this).attr("class");
-            newColor.replace(" tick", '');
-            newColor.replace(" tickwhite", '');
+            var newColor = $(this).attr("value");
+            newColor.replace("tick", '');
+            newColor.replace("tickwhite", '');
 
 
 
@@ -228,7 +235,7 @@ $(document).ready(function() {
 
         });
 
-        addNote.click(function() {
+        addNote.off('click').on('click', function() {
             var nextId = localStorage.getItem("nextId");
             popup.find(".id").val(nextId);
             popup.find(".color").val("white");
@@ -236,26 +243,62 @@ $(document).ready(function() {
             popupWrapper.removeClass("hidden");
         });
 
-        deleteIcon.click(function(e) {
+        deleteIcon.off('click').on('click', function(e) {
             e.stopPropagation();
             // notesArrayLength = notesArray.length;
-            var idToDelete = $(this).closest(".note").find(".id").val();
+            idToDelete = $(this).closest(".note").find(".id").val();
+            deletePopupWrapper.removeClass("hidden");
+
+        });
+
+        deletePopupButton.off('click').on('click', function(e) {
+            if (e.target != this) {
+                return false;
+            }
             var i;
+            notesArrayBackup = [...notesArray];
+
             for (i = 0; i < notesArrayLength; i++) {
                 if (notesArray[i].id == idToDelete) {
                     notesArray.splice(i, 1);
                     break;
                 }
             }
-
-
             localStorage.setItem("notes", JSON.stringify(notesArray));
-
+            idToDelete = -1;
+            deletePopupWrapper.addClass("hidden");
+            $('.toast').toast('show');
+            e.stopPropagation();
             loadnotes();
-
         });
 
-        copy.click(function(e) {
+        deleteCancel.off('click').on('click', function(e) {
+            if (e.target != this) {
+                return false;
+            }
+            e.stopPropagation();
+
+            idToDelete = -1;
+            deletePopupWrapper.addClass("hidden");
+        });
+
+        deletePopupWrapper.off('click').on('click', function(e) {
+            if (e.target != this) {
+                return false;
+            }
+            e.stopPropagation();
+            deletePopupWrapper.addClass("hidden");
+        });
+
+        undo.off('click').on('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            notesArray = [...notesArrayBackup];
+            localStorage.setItem("notes", JSON.stringify(notesArray));
+            loadnotes();
+        })
+
+        copy.off('click').on('click', function(e) {
             e.stopPropagation();
             var currentTitle = $(this).closest(".note").find(".title").html();
             var currentContent = $(this).closest(".note").find(".content").html();
@@ -337,8 +380,6 @@ $(document).ready(function() {
 
 
             noteWrapper.append(newElement);
-            // console.log(noteWrapper[noteWrapper.length - 1]);
-            // $grid.packery('addItems', noteWrapper[noteWrapper.length - 1]);
         }
 
 
@@ -359,11 +400,32 @@ $(document).ready(function() {
 
         $grid.find('.grid-item').each(function(i, gridItem) {
             var draggie = new Draggabilly(gridItem);
-            console.log(gridItem);
             // bind drag events to Packery
             $grid.packery('bindDraggabillyEvents', draggie);
         });
 
+        $grid.on('dragItemPositioned',
+            function(event, draggedItem) {
+                console.log('Packery drag item positioned',
+                    draggedItem.element);
+                var itemElems = $grid.packery('getItemElements');
+                console.log(itemElems);
+                notesArray = [];
+                var i;
+                for (i = 0; i < itemElems.length; i++) {
+                    var currentId = $(itemElems[i]).find(".id").val();
+                    var currentColor = $(itemElems[i]).find(".color").val();
+                    var currentTitle = $(itemElems[i]).find(".title").html();
+                    var currentContent = $(itemElems[i]).find(".content").html();
+
+                    console.log({ id: currentId, title: currentTitle, content: currentContent, color: currentColor });
+
+                    notesArray.push({ id: currentId, title: currentTitle, content: currentContent, color: currentColor });
+                }
+
+                localStorage.setItem("notes", JSON.stringify(notesArray));
+            }
+        );
     }
 
     loadnotes();
@@ -374,7 +436,7 @@ $(document).ready(function() {
 
 
 
-    closeButton.click(function() {
+    closeButton.off('click').on('click', function() {
         popupTitle.val("");
         textarea.val("");
         textareaSize.html("");
@@ -395,7 +457,7 @@ $(document).ready(function() {
         return false;
     });
 
-    popupWrapper.click(function(e) {
+    popupWrapper.off('click').on('click', function(e) {
         if (e.target != this) {
             return false;
         }
@@ -407,7 +469,7 @@ $(document).ready(function() {
         return false;
     });
 
-    save.click(function() {
+    save.off('click').on('click', function() {
         var currentId = $(this).closest(".note").find(".id").val();
 
         var currentTitle = $(this).closest(".note").find(".popup-title").val();

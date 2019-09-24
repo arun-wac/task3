@@ -47,7 +47,7 @@
 
                 <!-- <div class="col-3 note-item note white">
                     <input type="hidden" class="id" name="id" value="1" />
-                    <input type="hidden" class="color" name="color" value="white" />
+                    <input type="hidden" class="color" name="color" value="color" />
                     <div class="row">
                         <h3 class="note-title text-center">Title</h3>
                     </div>
@@ -114,28 +114,28 @@
                     <li class="color-icon"><i class="material-icons">color_lens</i>
                         <div class="color-picker">
                             <ul>
-                                <li class="white tick"></li>
-                                <li class="lightcyan"></li>
-                                <li class="aquamarine"></li>
-                                <li class="charteruse"></li>
+                                <li class="white tick" value="white"></li>
+                                <li class="lightcyan" value="lightcyan"></li>
+                                <li class="aquamarine" value="aquamarine"></li>
+                                <li class="charteruse" value="charteruse"></li>
                             </ul>
                             <ul>
-                                <li class="yellow"></li>
-                                <li class="gold"></li>
-                                <li class="orange"></li>
-                                <li class="tomato"></li>
+                                <li class="yellow" value="yellow"></li>
+                                <li class="gold" value="gold"></li>
+                                <li class="orange" value="orange"></li>
+                                <li class="tomato" value="tomato"></li>
                             </ul>
                             <ul>
-                                <li class="magenta"></li>
-                                <li class="red"></li>
-                                <li class="aqua"></li>
-                                <li class="dodgerblue"></li>
+                                <li class="magenta" value="magenta"></li>
+                                <li class="red" value="red"></li>
+                                <li class="aqua" value="aqua"></li>
+                                <li class="dodgerblue" value="dodgerblue"></li>
                             </ul>
                             <ul>
-                                <li class="navy"></li>
-                                <li class="saddlebrown"></li>
-                                <li class="grey"></li>
-                                <li class="black"></li>
+                                <li class="navy" value="navy"></li>
+                                <li class="saddlebrown" value="saddlebrown"></li>
+                                <li class="grey" value="grey"></li>
+                                <li class="black" value="black"></li>
 
                             </ul>
                         </div>
@@ -148,6 +148,25 @@
             </div>
         </div>
     </div>
+    <div class="toast ml-auto mb-5" data-autohide="false">
+        <div class="toast-header">
+            <button type="button" class="ml-auto mb-1 close" data-dismiss="toast">&times;</button>
+        </div>
+        <div class="toast-body">
+            <span>Note Deleted</span>
+            <a href="" class="undo" data-dismiss="toast">Undo</a>
+        </div>
+    </div>
+    <div class="delete-popup-wrapper hidden">
+        <div class="delete-popup text-center">
+            <p>Are You Sure You want to Delete this Note?</p>
+
+            <button type="button" class="btn btn-danger delete-button">Delete</button>
+            <button type="button" class="btn btn-primary delete-cancel-button">Cancel</button>
+        </div>
+    </div>
+
+
 
     <script src="js/main.js"></script>
 

@@ -155,7 +155,8 @@ label:focus,
   background-color: dodgerblue;
 }
 
-.popup-wrapper {
+.popup-wrapper,
+.delete-popup-wrapper {
   height: 100%;
   position: fixed;
   top: 0;
@@ -165,7 +166,24 @@ label:focus,
   background-color: rgba(255, 255, 255, 0.5);
 }
 
-.popup {
+.delete-popup {
+  opacity: 1;
+  background: white;
+  border-radius: 5px;
+  border: 0px !important;
+  -webkit-box-shadow: 0 0 10px 3px grey;
+          box-shadow: 0 0 10px 3px grey;
+  width: 400px;
+  height: auto;
+  padding: 20px;
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+
+div.popup {
   opacity: 1;
   border-radius: 5px;
   border: 0px !important;
@@ -178,7 +196,11 @@ label:focus,
           transform: translateX(-50%);
 }
 
-.popup .popup-body {
+div.popup:hover {
+  border: 0px !important;
+}
+
+div.popup .popup-body {
   padding: 0 30px 30px 30px;
   max-width: 600px;
   width: 100%;
@@ -186,25 +208,25 @@ label:focus,
   height: auto;
 }
 
-.popup .popup-body .popup-item {
+div.popup .popup-body .popup-item {
   background-color: transparent;
   color: inherit;
   border: 0;
   width: 100%;
 }
 
-.popup .popup-body .popup-item.note-footer {
+div.popup .popup-body .popup-item.note-footer {
   background-color: rgba(171, 171, 171, 0.3);
   width: 100%;
 }
 
-.popup .popup-body .close-wrapper {
+div.popup .popup-body .close-wrapper {
   top: 8px;
   position: relative;
   height: 36px;
 }
 
-.popup .popup-body .close-button {
+div.popup .popup-body .close-button {
   position: absolute;
   right: 0;
   top: 0;
@@ -213,21 +235,21 @@ label:focus,
   color: inherit;
 }
 
-.popup .popup-body .close-button i {
+div.popup .popup-body .close-button i {
   line-height: 24px;
   font-size: 36px;
 }
 
-.popup .popup-body .close-button:hover i {
+div.popup .popup-body .close-button:hover i {
   text-shadow: 0 0 10px black;
 }
 
-.popup .popup-body .popup-title {
+div.popup .popup-body .popup-title {
   font-size: 2rem;
   font-weight: 700;
 }
 
-.popup .popup-body .popup-content {
+div.popup .popup-body .popup-content {
   padding-top: 20px;
   padding-bottom: 50px;
   line-height: 1.5;
@@ -386,21 +408,39 @@ label:focus,
   background-repeat: no-repeat;
 }
 
-.packery-drop-placeholder {
-  outline: 3px dashed #444;
-  outline-offset: -6px;
-  /* transition position changing */
-  -webkit-transition: -webkit-transform 0.2s;
-  transition: -webkit-transform 0.2s;
-  transition: transform 0.2s;
-  transition: transform 0.2s, -webkit-transform 0.2s;
-}
-
 .grid-item {
   margin: 10px 0;
 }
 
 .grid-item:hover {
   cursor: move;
+}
+
+.toast {
+  background-color: black !important;
+  color: white !important;
+  width: 400px;
+  position: absolute;
+  top: 90%;
+  right: 10px;
+}
+
+.toast .close {
+  background: black;
+  color: white;
+}
+
+.toast-header {
+  background-color: black !important;
+  color: white !important;
+}
+
+.toast-body {
+  background-color: black !important;
+  color: white !important;
+}
+
+.undo {
+  text-decoration: none !important;
 }
 /*# sourceMappingURL=style.css.map */
