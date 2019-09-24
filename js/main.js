@@ -93,6 +93,14 @@ $(document).ready(function() {
     var deleteIcon = $(".delete");
     var copy = $(".copy");
 
+    var $grid = $('.grid').packery({
+        itemSelector: '.grid-item',
+        columnWidth: 310,
+        columnHeight: 200,
+        gutter: 2,
+        originTop: true
+    });
+
     function loadvariables() {
         colorPicker = $(".color-picker");
         colorPickerColors = $(".color-picker li");
@@ -329,23 +337,33 @@ $(document).ready(function() {
 
 
             noteWrapper.append(newElement);
+            // console.log(noteWrapper[noteWrapper.length - 1]);
+            // $grid.packery('addItems', noteWrapper[noteWrapper.length - 1]);
         }
 
-        var $grid = $('.grid').packery({
-            itemSelector: '.grid-item',
-            columnWidth: 310,
-            columnHeight: 200
-        });
+
+
+        loadvariables();
+        loadEvents();
+
+        var k;
+        for (k = 0; k < noteItem.length; k++) {
+            $grid.packery('remove', noteItem[k]);
+            $grid.packery('addItems', noteItem[k]);
+        }
+
+        $grid.packery('layout');
+
+
 
 
         $grid.find('.grid-item').each(function(i, gridItem) {
             var draggie = new Draggabilly(gridItem);
+            console.log(gridItem);
             // bind drag events to Packery
             $grid.packery('bindDraggabillyEvents', draggie);
         });
 
-        loadvariables();
-        loadEvents();
     }
 
     loadnotes();
