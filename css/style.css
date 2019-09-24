@@ -412,16 +412,12 @@ div.popup .popup-body .popup-content {
   margin: 10px 0;
 }
 
-.grid-item:hover {
-  cursor: move;
-}
-
 .toast {
   background-color: black !important;
   color: white !important;
   width: 400px;
   position: absolute;
-  top: 90%;
+  bottom: 0px;
   right: 10px;
 }
 

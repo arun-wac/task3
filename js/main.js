@@ -73,7 +73,6 @@ $(document).ready(function() {
     var closeButton = $(".close-button");
     var popupTitle = $(".popup-title");
     var textarea = $("textarea.popup-item");
-    var textareaSize = $(".textarea-size");
     var save = $(".save");
     var noteWrapper = $(".note-wrapper");
     var addNote = $(".add-note");
@@ -99,6 +98,7 @@ $(document).ready(function() {
     var copy = $(".copy");
     var idToDelete = -1;
     var undo = $(".undo");
+    var editIcon = $(".edit");
 
     var $grid = $('.grid').packery({
         itemSelector: '.grid-item',
@@ -124,6 +124,7 @@ $(document).ready(function() {
             notesArrayLength = notesArray.length;
         }
         copy = $(".copy");
+        editIcon = $(".edit");
     }
 
     function popupReset() {
@@ -138,16 +139,17 @@ $(document).ready(function() {
         popup.find('.title').val('');
         popup.find('.color').val('');
         popup.find('.content').val('');
+        popup.find(".textarea").css({ "height": "auto", "overflow-y": "hidden", "max-height": "300px", "min-height": "30px" });
     }
 
     function loadEvents() {
         loadvariables();
 
 
-        noteItem.on('click', function() {
+        editIcon.on('click', function() {
             popupWrapper.removeClass("hidden");
-            popupTitle.val($(this).find(".note-title").html());
-            textarea.val($(this).find(".note-content").html());
+            popupTitle.val($(this).closest(".note").find(".note-title").html());
+            textarea.val($(this).closest(".note").find(".note-content").html());
             textarea.focus();
             var textareaheight = document.getElementById("textarea").scrollHeight;
 
@@ -163,12 +165,12 @@ $(document).ready(function() {
 
 
             // popupTitle.focus();
-            $(".popup .id").val($(this).find(".id").val());
-            $(".popup .color").val($(this).find(".color").val());
-            backupColor = $(this).find(".color").val();
+            $(".popup .id").val($(this).closest(".note").find(".id").val());
+            $(".popup .color").val($(this).closest(".note").find(".color").val());
+            backupColor = $(this).closest(".note").find(".color").val();
 
             popup.removeClass(colors);
-            popup.addClass($(this).find(".color").val());
+            popup.addClass($(this).closest(".note").find(".color").val());
 
             var i, j;
             for (j = 0; j < colorPickerColors.length; j++) {
@@ -189,6 +191,7 @@ $(document).ready(function() {
                 }
             }
             // popupWrapper.removeClass("hidden");
+            // return false;
         });
 
 
@@ -371,11 +374,12 @@ $(document).ready(function() {
             // newElement += '</div>' +
             //     '</li>' +
 
-            newElement += '<li class="delete">' + '<i class="material-icons">' + '&#xe872;' + '</i>' + '</li>' +
-                '<li class="copy">' + '<i class="material-icons">content_copy</i>' + '</li>'
-            '</ul>' +
-            '</div>' +
-            '</div >';
+            newElement += '<li class="edit"><i class="material-icons">&#xe3c9;</i></li>' +
+                '<li class="delete">' + '<i class="material-icons">' + '&#xe872;' + '</i>' + '</li>' +
+                '<li class="copy">' + '<i class="material-icons">content_copy</i>' + '</li>' +
+                '</ul>' +
+                '</div>' +
+                '</div >';
 
 
 
@@ -424,8 +428,8 @@ $(document).ready(function() {
                 }
 
                 localStorage.setItem("notes", JSON.stringify(notesArray));
-            }
-        );
+                return false;
+            });
     }
 
     loadnotes();
@@ -436,11 +440,11 @@ $(document).ready(function() {
 
 
 
-    closeButton.off('click').on('click', function() {
+    closeButton.on('click', function() {
         popupWrapper.addClass("hidden");
         popupTitle.val("");
         textarea.val("");
-        textareaSize.html("");
+
 
 
         var currentId = $(this).closest(".popup").find(".id").val();
@@ -462,11 +466,11 @@ $(document).ready(function() {
         if (e.target != this) {
             return false;
         }
+        popupWrapper.addClass("hidden");
         popupTitle.val("");
         textarea.val("");
-        textareaSize.html("");
 
-        popupWrapper.addClass("hidden");
+
         return false;
     });
 
