@@ -420,9 +420,20 @@ $(document).ready(function() {
         if (e.target != this) {
             return false;
         }
-        popupWrapper.addClass("hidden");
+
         popupTitle.val("");
         textarea.val("");
+        var currentId = $(this).find(".id").val();
+        var currentColor = $(this).find(".color").val();
+
+        var currentNoteItem = $(".note-item .id[value=" + currentId + "]").closest(".note-item");
+        currentNoteItem.removeClass(currentColor);
+        currentNoteItem.addClass(backupColor);
+        currentNoteItem.find(".color").val(backupColor);
+
+        popup.removeClass(currentColor);
+        popupWrapper.addClass("hidden");
+        popupReset();
 
 
         return false;
