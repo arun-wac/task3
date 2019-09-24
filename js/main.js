@@ -65,6 +65,24 @@ var darkColors = ["magenta",
 
 var backupColor, backupTitle, backupContent;
 
+function uniqueArray(notes) {
+    var i;
+    var newArray = [];
+    for (i = 0; i < notes.length; i++) {
+        var curId = notes[i].id;
+        var j, flag = true;
+        for (j = 0; j < newArray.length; j++) {
+            if (newArray[j].id == curId) {
+                flag = false;
+                break;
+            }
+        }
+        if (flag) {
+            newArray.push({ id: curId, title: notes[i].title, content: notes[i].content, color: notes[i].color });
+        }
+    }
+    return newArray;
+}
 
 $(document).ready(function() {
 
@@ -126,6 +144,8 @@ $(document).ready(function() {
         }
         copy = $(".copy");
         editIcon = $(".edit");
+        notesArray = [...uniqueArray(notesArray)];
+        localStorage.setItem("notes", JSON.stringify(notesArray));
     }
 
     function popupReset() {
