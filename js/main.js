@@ -104,8 +104,9 @@ $(document).ready(function() {
         itemSelector: '.grid-item',
         columnWidth: 310,
         columnHeight: 200,
-        gutter: 2,
-        originTop: true
+        gutter: 15,
+        originTop: true,
+        originLeft: true
     });
 
     function loadvariables() {
@@ -145,7 +146,6 @@ $(document).ready(function() {
     function loadEvents() {
         loadvariables();
 
-
         editIcon.on('click', function() {
             popupWrapper.removeClass("hidden");
             popupTitle.val($(this).closest(".note").find(".note-title").html());
@@ -153,9 +153,7 @@ $(document).ready(function() {
             textarea.focus();
             var textareaheight = document.getElementById("textarea").scrollHeight;
 
-            // if (textarea.scrollHeight > 30)
             textarea.css({ "height": (textareaheight) + 'px', "overflow-y": "hidden", "max-height": "300px", "min-height": "30px" });
-            // if (textarea.scrollHeight > 30)
             if (textareaheight > 300) {
                 textarea.css({ "height": "300px", "overflow-y": "scroll", "max-height": "300px", "min-height": "30px" });
             }
@@ -163,8 +161,6 @@ $(document).ready(function() {
             textarea.focus();
             popup.find(".title").focus();
 
-
-            // popupTitle.focus();
             $(".popup .id").val($(this).closest(".note").find(".id").val());
             $(".popup .color").val($(this).closest(".note").find(".color").val());
             backupColor = $(this).closest(".note").find(".color").val();
@@ -190,8 +186,6 @@ $(document).ready(function() {
                     }
                 }
             }
-            // popupWrapper.removeClass("hidden");
-            // return false;
         });
 
 
@@ -203,9 +197,6 @@ $(document).ready(function() {
             newColor.replace("tick", '');
             newColor.replace("tickwhite", '');
 
-
-
-
             colorPickerColors.removeClass("tick");
             colorPickerColors.removeClass("tickwhite");
 
@@ -215,7 +206,6 @@ $(document).ready(function() {
             currentNoteItem.removeClass(currentColor);
             currentNoteItem.addClass(newColor);
             currentNoteItem.find(".color").val(newColor);
-
 
             popup.removeClass(currentColor);
             popup.addClass(newColor);
@@ -234,8 +224,6 @@ $(document).ready(function() {
                     return true;
                 }
             }
-
-
         });
 
         addNote.off('click').on('click', function() {
@@ -319,19 +307,11 @@ $(document).ready(function() {
 
     }
 
-
-
     function loadnotes() {
         loadvariables();
-        // notesArray = JSON.parse(localStorage.getItem("notes"));
-        // notesArrayLength = notesArray.length;
         var i;
         var notes;
         noteWrapper.empty();
-        // var newElement = '<div class="col-2 new-note">' +
-        //     '<i class="material-icons add-note">add</i>' +
-        //     '</div>';
-        // noteWrapper.append(newElement);
         for (i = 0; i < notesArrayLength; i++) {
 
             var id = notesArray[i].id;
@@ -348,45 +328,16 @@ $(document).ready(function() {
                 '<p class="note-content content">' + content + '</p>' +
                 '</div>' +
                 '<div class="note-footer ">' +
-                '<ul class="w-100 px-0 text-center">';
-            //     '<li class="color-icon">' + '<i class="material-icons">' + 'color_lens' + '</i>' +
-            //     '<div class="color-picker">';
-            // for (j = 0; j < colors.length; j++) {
-            //     if ((j + 1) % 4 == 1) {
-            //         newElement += '<ul>';
-            //     }
-            //     newElement += '<li class="' + colors[j];
-            //     if (colors[j] == color) {
-            //         darkColors.find(() => colors[j])
-            //         if (darkColors.includes(colors[j])) {
-            //             newElement += ' tickwhite';
-            //         } else {
-
-            //             newElement += ' tick';
-            //         }
-            //     }
-            //     newElement += '">' + '</li>';
-            //     if ((j + 1) % 4 == 0) {
-            //         newElement += '</ul>'
-            //     }
-            // }
-
-            // newElement += '</div>' +
-            //     '</li>' +
-
-            newElement += '<li class="edit"><i class="material-icons">&#xe3c9;</i></li>' +
+                '<ul class="w-100 px-0 text-center">' +
+                '<li class="edit"><i class="material-icons">&#xe3c9;</i></li>' +
                 '<li class="delete">' + '<i class="material-icons">' + '&#xe872;' + '</i>' + '</li>' +
                 '<li class="copy">' + '<i class="material-icons">content_copy</i>' + '</li>' +
                 '</ul>' +
                 '</div>' +
                 '</div >';
 
-
-
             noteWrapper.append(newElement);
         }
-
-
 
         loadvariables();
         loadEvents();
@@ -399,9 +350,6 @@ $(document).ready(function() {
 
         $grid.packery('layout');
 
-
-
-
         $grid.find('.grid-item').each(function(i, gridItem) {
             var draggie = new Draggabilly(gridItem);
             // bind drag events to Packery
@@ -410,10 +358,7 @@ $(document).ready(function() {
 
         $grid.on('dragItemPositioned',
             function(event, draggedItem) {
-                console.log('Packery drag item positioned',
-                    draggedItem.element);
                 var itemElems = $grid.packery('getItemElements');
-                console.log(itemElems);
                 notesArray = [];
                 var i;
                 for (i = 0; i < itemElems.length; i++) {
@@ -421,8 +366,6 @@ $(document).ready(function() {
                     var currentColor = $(itemElems[i]).find(".color").val();
                     var currentTitle = $(itemElems[i]).find(".title").html();
                     var currentContent = $(itemElems[i]).find(".content").html();
-
-                    console.log({ id: currentId, title: currentTitle, content: currentContent, color: currentColor });
 
                     notesArray.push({ id: currentId, title: currentTitle, content: currentContent, color: currentColor });
                 }
@@ -433,19 +376,10 @@ $(document).ready(function() {
     }
 
     loadnotes();
-
-
-
-
-
-
-
     closeButton.on('click', function() {
         popupWrapper.addClass("hidden");
         popupTitle.val("");
         textarea.val("");
-
-
 
         var currentId = $(this).closest(".popup").find(".id").val();
         var currentColor = $(this).closest(".popup").find(".color").val();
@@ -497,16 +431,12 @@ $(document).ready(function() {
                 }
             }
             if (i == notesArrayLength) {
-                // currentId = notesArray.length;
                 if (currentTitle == '' || currentContent == '') {
                     return false;
                 }
                 notesArray.push({ id: currentId, title: currentTitle, content: currentContent, color: currentColor });
                 nextId++;
             }
-
-
-            // notesArray.push({ id: currentId, title: currentTitle, content: currentContent, color: currentColor });
             localStorage.setItem("nextId", nextId);
             localStorage.setItem("notes", JSON.stringify(notesArray));
         }
@@ -517,13 +447,7 @@ $(document).ready(function() {
 
     });
 
-
-
-
-
     // localStorage.setItem("notes", JSON.stringify(jsonArray));
-
-
 
 });
 
@@ -531,12 +455,6 @@ $(document).ready(function() {
 
 
 $(document).ready(function() {
-    // $(function() {
-    //     $(".note-wrapper").sortable();
-    //     $(".note-wrapper").disableSelection();
-    // });
-
-    // autosize($('textarea'));
 
     $('textarea').each(function() {
         if (this.scrollHeight > 30)

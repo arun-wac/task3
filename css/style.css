@@ -408,10 +408,6 @@ div.popup .popup-body .popup-content {
   background-repeat: no-repeat;
 }
 
-.grid-item {
-  margin: 10px 0;
-}
-
 .toast {
   background-color: black !important;
   color: white !important;
